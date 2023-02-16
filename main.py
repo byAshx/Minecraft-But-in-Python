@@ -2,7 +2,7 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 
 app = Ursina()
-
+### Loads all textures
 grass_texture = load_texture('assets/grass_block.png')
 stone_texture = load_texture('assets/stone_block.png')
 brick_texture = load_texture('assets/brick_block.png')
@@ -16,6 +16,7 @@ block_pick = 1
 window.fps_counter.enabled = False
 window.exit_button.visible = False
 
+### Keys used to change blocks types
 def update():
     global block_pick
 
@@ -28,6 +29,8 @@ def update():
     if held_keys['2']: block_pick = 2
     if held_keys['3']: block_pick = 3
     if held_keys['4']: block_pick = 4
+
+### Makes default assets and where to put them on the spawned plot
 
 class Voxel(Button):
     def __init__(self, position = (0,0,0), texture = grass_texture):
@@ -54,7 +57,7 @@ class Voxel(Button):
             if key == 'right mouse down':
                 punch_sound.play
                 destroy(self)
-
+### makes Sky texture
 class Sky(Entity):
     def __init__(self):
         super().__init__(
@@ -65,7 +68,7 @@ class Sky(Entity):
             double_sided = True
             
         )
-
+### Makes hand visible 
 class Hand(Entity):
     def __init__(self):
         super().__init__(
@@ -78,14 +81,14 @@ class Hand(Entity):
 
             
         )
-
+### Makes hand move on button presses
     def active(self):
         self.position = Vec2(0.3,-0.5)
 
     def passive(self):
         self.position = Vec2(0.4,-0.6)
 
-
+### Size of the spawned plot, larger the plot, more memory used.
 for z in range(20):
     for x in range(20):
         voxel = Voxel(position = (x,0,z))
